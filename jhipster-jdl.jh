@@ -1,0 +1,23 @@
+/**
+ * Activity entity.
+ * @author The JHipster team.
+ */
+entity Activity {
+	name String,
+    	title Sport,
+	description String
+}
+
+entity City {
+	jobTitle String,
+	longitude Float,
+	latitude Float
+}
+enum Sport {
+    SURF, SKI
+}
+
+dto * with mapstruct
+
+// Set an angular suffix
+angularSuffix * with mySuffix
