@@ -66,13 +66,13 @@ public class Activity implements Serializable {
 
     public Activity addUser(User user) {
         this.users.add(user);
-        user.getActivities().add(this);
+        //user.getActivities().add(this);
         return this;
     }
 
     public Activity removeUser(User user) {
         this.users.remove(user);
-        user.getActivities().remove(this);
+        //user.getActivities().remove(this);
         return this;
     }
 

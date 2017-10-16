@@ -98,13 +98,13 @@ public class City implements Serializable {
 
     public City addUser(User user) {
         this.users.add(user);
-        user.getCities().add(this);
+        //user.getCities().add(this);
         return this;
     }
 
     public City removeUser(User user) {
         this.users.remove(user);
-        user.getCities().remove(this);
+        //user.getCities().remove(this);
         return this;
     }
 
