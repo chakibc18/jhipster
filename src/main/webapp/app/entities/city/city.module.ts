@@ -14,7 +14,6 @@ import {
     CityDeleteDialogComponent,
     cityRoute,
     cityPopupRoute,
-    CityResolvePagingParams,
 } from './';
 
 const ENTITY_STATES = [
@@ -46,7 +45,6 @@ const ENTITY_STATES = [
     providers: [
         CityService,
         CityPopupService,
-        CityResolvePagingParams,
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

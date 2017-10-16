@@ -28,10 +28,10 @@ public class Activity implements Serializable {
 
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    @JoinTable(name = "activity_spend",
+    @JoinTable(name = "activity_user",
                joinColumns = @JoinColumn(name="activities_id", referencedColumnName="id"),
-               inverseJoinColumns = @JoinColumn(name="spends_id", referencedColumnName="id"))
-    private Set<User> spends = new HashSet<>();
+               inverseJoinColumns = @JoinColumn(name="users_id", referencedColumnName="id"))
+    private Set<User> users = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -55,29 +55,29 @@ public class Activity implements Serializable {
         this.name = name;
     }
 
-    public Set<User> getSpends() {
-        return spends;
+    public Set<User> getUsers() {
+        return users;
     }
 
-    public Activity spends(Set<User> users) {
-        this.spends = users;
+    public Activity users(Set<User> users) {
+        this.users = users;
         return this;
     }
 
-    public Activity addSpend(User user) {
-        this.spends.add(user);
-        //user.getActivities().add(this);
+    public Activity addUser(User user) {
+        this.users.add(user);
+        user.getActivities().add(this);
         return this;
     }
 
-    public Activity removeSpend(User user) {
-        this.spends.remove(user);
-        //user.getActivities().remove(this);
+    public Activity removeUser(User user) {
+        this.users.remove(user);
+        user.getActivities().remove(this);
         return this;
     }
 
-    public void setSpends(Set<User> users) {
-        this.spends = users;
+    public void setUsers(Set<User> users) {
+        this.users = users;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

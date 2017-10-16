@@ -1,12 +1,12 @@
-import { BaseEntity } from './../../shared';
+import { BaseEntity, User } from './../../shared';
 
 export class City implements BaseEntity {
     constructor(
         public id?: number,
         public name?: string,
-        public latitude?: number,
-        public longitude?: number,
-        public userId?: number,
+        public latitude?: string,
+        public longitude?: string,
+        public users?: User[],
     ) {
     }
 }

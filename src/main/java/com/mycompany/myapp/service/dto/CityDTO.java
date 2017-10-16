@@ -15,13 +15,11 @@ public class CityDTO implements Serializable {
 
     private String name;
 
-    private Float latitude;
+    private String latitude;
 
-    private Float longitude;
+    private String longitude;
 
-    private Long userId;
-
-    private String userLogin;
+    private Set<UserDTO> users = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -39,36 +37,28 @@ public class CityDTO implements Serializable {
         this.name = name;
     }
 
-    public Float getLatitude() {
+    public String getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(Float latitude) {
+    public void setLatitude(String latitude) {
         this.latitude = latitude;
     }
 
-    public Float getLongitude() {
+    public String getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(Float longitude) {
+    public void setLongitude(String longitude) {
         this.longitude = longitude;
     }
 
-    public Long getUserId() {
-        return userId;
+    public Set<UserDTO> getUsers() {
+        return users;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public String getUserLogin() {
-        return userLogin;
-    }
-
-    public void setUserLogin(String userLogin) {
-        this.userLogin = userLogin;
+    public void setUsers(Set<UserDTO> users) {
+        this.users = users;
     }
 
     @Override

@@ -8,10 +8,10 @@
         <dd>
             <span>{{activity.name}}</span>
         </dd>
-        <dt><span jhiTranslate="jhipsterApp.activity.spend">Spend</span></dt>
+        <dt><span jhiTranslate="jhipsterApp.activity.user">User</span></dt>
         <dd>
-            <span *ngFor="let spend of activity.spends; let last = last">
-                {{spend.login}}{{last ? '' : ', '}}
+            <span *ngFor="let user of activity.users; let last = last">
+                {{user.login}}{{last ? '' : ', '}}
             </span>
         </dd>
     </dl>

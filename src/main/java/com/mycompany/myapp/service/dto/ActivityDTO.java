@@ -15,7 +15,7 @@ public class ActivityDTO implements Serializable {
 
     private String name;
 
-    private Set<UserDTO> spends = new HashSet<>();
+    private Set<UserDTO> users = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -33,12 +33,12 @@ public class ActivityDTO implements Serializable {
         this.name = name;
     }
 
-    public Set<UserDTO> getSpends() {
-        return spends;
+    public Set<UserDTO> getUsers() {
+        return users;
     }
 
-    public void setSpends(Set<UserDTO> users) {
-        this.spends = users;
+    public void setUsers(Set<UserDTO> users) {
+        this.users = users;
     }
 
     @Override

@@ -10,13 +10,8 @@ import org.mapstruct.*;
  */
 @Mapper(componentModel = "spring", uses = {UserMapper.class, })
 public interface CityMapper extends EntityMapper <CityDTO, City> {
-
-    @Mapping(source = "user.id", target = "userId")
-    @Mapping(source = "user.login", target = "userLogin")
-    CityDTO toDto(City city); 
-
-    @Mapping(source = "userId", target = "user")
-    City toEntity(CityDTO cityDTO); 
+    
+    
     default City fromId(Long id) {
         if (id == null) {
             return null;

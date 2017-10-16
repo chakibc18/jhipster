@@ -4,7 +4,7 @@ export class Activity implements BaseEntity {
     constructor(
         public id?: number,
         public name?: string,
-        public spends?: User[],
+        public users?: User[],
     ) {
     }
 }

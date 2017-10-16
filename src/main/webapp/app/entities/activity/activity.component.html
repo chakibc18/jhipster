@@ -15,9 +15,10 @@
     <div class="table-responsive" *ngIf="activities">
         <table class="table table-striped">
             <thead>
-            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="name"><span jhiTranslate="jhipsterApp.activity.name">Name</span> <span class="fa fa-sort"></span></th>
+            <tr>
+            <th><span jhiTranslate="global.field.id">ID</span></th>
+            <th><span jhiTranslate="jhipsterApp.activity.name">Name</span></th>
+            <th><span jhiTranslate="jhipsterApp.activity.user">User</span></th>
             <th></th>
             </tr>
             </thead>
@@ -25,6 +26,11 @@
             <tr *ngFor="let activity of activities ;trackBy: trackId">
                 <td><a [routerLink]="['../activity', activity.id ]">{{activity.id}}</a></td>
                 <td>{{activity.name}}</td>
+                <td>
+                    <span *ngFor="let user of activity.users; let last = last">
+                            {{user.login}}{{last ? '' : ', '}}
+                        </span>
+                </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"
@@ -53,12 +59,4 @@
             </tbody>
         </table>
     </div>
-        <div *ngIf="activities && activities.length">
-            <div class="row justify-content-center">
-                <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
-            </div>
-            <div class="row justify-content-center">
-                <ngb-pagination [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)"></ngb-pagination>
-            </div>
-        </div>
 </div>

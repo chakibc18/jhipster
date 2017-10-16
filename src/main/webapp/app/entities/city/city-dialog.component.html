@@ -19,20 +19,19 @@
         </div>
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="jhipsterApp.city.latitude" for="field_latitude">Latitude</label>
-            <input type="number" class="form-control" name="latitude" id="field_latitude"
+            <input type="text" class="form-control" name="latitude" id="field_latitude"
                 [(ngModel)]="city.latitude"  />
         </div>
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="jhipsterApp.city.longitude" for="field_longitude">Longitude</label>
-            <input type="number" class="form-control" name="longitude" id="field_longitude"
+            <input type="text" class="form-control" name="longitude" id="field_longitude"
                 [(ngModel)]="city.longitude"  />
         </div>
 
         <div class="form-group">
-            <label class="form-control-label" jhiTranslate="jhipsterApp.city.user" for="field_user">User</label>
-            <select class="form-control" id="field_user" name="user" [(ngModel)]="city.userId" >
-                <option [ngValue]="null"></option>
-                <option [ngValue]="userOption.id" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.login}}</option>
+            <label jhiTranslate="jhipsterApp.city.user" for="field_user">User</label>
+            <select class="form-control" id="field_user" multiple name="user" [(ngModel)]="city.users">
+                <option [ngValue]="getSelected(city.users, userOption)" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.login}}</option>
             </select>
         </div>
     </div>

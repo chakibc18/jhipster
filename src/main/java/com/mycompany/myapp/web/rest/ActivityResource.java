@@ -3,16 +3,10 @@ package com.mycompany.myapp.web.rest;
 import com.codahale.metrics.annotation.Timed;
 import com.mycompany.myapp.service.ActivityService;
 import com.mycompany.myapp.web.rest.util.HeaderUtil;
-import com.mycompany.myapp.web.rest.util.PaginationUtil;
 import com.mycompany.myapp.service.dto.ActivityDTO;
-import io.swagger.annotations.ApiParam;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -84,17 +78,14 @@ public class ActivityResource {
     /**
      * GET  /activities : get all the activities.
      *
-     * @param pageable the pagination information
      * @return the ResponseEntity with status 200 (OK) and the list of activities in body
      */
     @GetMapping("/activities")
     @Timed
-    public ResponseEntity<List<ActivityDTO>> getAllActivities(@ApiParam Pageable pageable) {
-        log.debug("REST request to get a page of Activities");
-        Page<ActivityDTO> page = activityService.findAll(pageable);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/activities");
-        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
-    }
+    public List<ActivityDTO> getAllActivities() {
+        log.debug("REST request to get all Activities");
+        return activityService.findAll();
+        }
 
     /**
      * GET  /activities/:id : get the "id" activity.

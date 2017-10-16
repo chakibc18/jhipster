@@ -13,10 +13,10 @@ import java.util.List;
 @SuppressWarnings("unused")
 @Repository
 public interface ActivityRepository extends JpaRepository<Activity, Long> {
-    @Query("select distinct activity from Activity activity left join fetch activity.spends")
+    @Query("select distinct activity from Activity activity left join fetch activity.users")
     List<Activity> findAllWithEagerRelationships();
 
-    @Query("select activity from Activity activity left join fetch activity.spends where activity.id =:id")
+    @Query("select activity from Activity activity left join fetch activity.users where activity.id =:id")
     Activity findOneWithEagerRelationships(@Param("id") Long id);
 
 }

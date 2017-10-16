@@ -18,7 +18,9 @@
         </dd>
         <dt><span jhiTranslate="jhipsterApp.city.user">User</span></dt>
         <dd>
-            {{city.userLogin}}
+            <span *ngFor="let user of city.users; let last = last">
+                {{user.login}}{{last ? '' : ', '}}
+            </span>
         </dd>
     </dl>
 

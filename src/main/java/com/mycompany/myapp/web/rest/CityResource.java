@@ -1,21 +1,12 @@
 package com.mycompany.myapp.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import com.mycompany.myapp.domain.City;
-
-import com.mycompany.myapp.repository.CityRepository;
+import com.mycompany.myapp.service.CityService;
 import com.mycompany.myapp.web.rest.util.HeaderUtil;
-import com.mycompany.myapp.web.rest.util.PaginationUtil;
 import com.mycompany.myapp.service.dto.CityDTO;
-import com.mycompany.myapp.service.mapper.CityMapper;
-import io.swagger.annotations.ApiParam;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,13 +27,10 @@ public class CityResource {
 
     private static final String ENTITY_NAME = "city";
 
-    private final CityRepository cityRepository;
+    private final CityService cityService;
 
-    private final CityMapper cityMapper;
-
-    public CityResource(CityRepository cityRepository, CityMapper cityMapper) {
-        this.cityRepository = cityRepository;
-        this.cityMapper = cityMapper;
+    public CityResource(CityService cityService) {
+        this.cityService = cityService;
     }
 
     /**
@@ -59,9 +47,7 @@ public class CityResource {
         if (cityDTO.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new city cannot already have an ID")).body(null);
         }
-        City city = cityMapper.toEntity(cityDTO);
-        city = cityRepository.save(city);
-        CityDTO result = cityMapper.toDto(city);
+        CityDTO result = cityService.save(cityDTO);
         return ResponseEntity.created(new URI("/api/cities/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -83,9 +69,7 @@ public class CityResource {
         if (cityDTO.getId() == null) {
             return createCity(cityDTO);
         }
-        City city = cityMapper.toEntity(cityDTO);
-        city = cityRepository.save(city);
-        CityDTO result = cityMapper.toDto(city);
+        CityDTO result = cityService.save(cityDTO);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, cityDTO.getId().toString()))
             .body(result);
@@ -94,17 +78,14 @@ public class CityResource {
     /**
      * GET  /cities : get all the cities.
      *
-     * @param pageable the pagination information
      * @return the ResponseEntity with status 200 (OK) and the list of cities in body
      */
     @GetMapping("/cities")
     @Timed
-    public ResponseEntity<List<CityDTO>> getAllCities(@ApiParam Pageable pageable) {
-        log.debug("REST request to get a page of Cities");
-        Page<City> page = cityRepository.findAll(pageable);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/cities");
-        return new ResponseEntity<>(cityMapper.toDto(page.getContent()), headers, HttpStatus.OK);
-    }
+    public List<CityDTO> getAllCities() {
+        log.debug("REST request to get all Cities");
+        return cityService.findAll();
+        }
 
     /**
      * GET  /cities/:id : get the "id" city.
@@ -116,8 +97,7 @@ public class CityResource {
     @Timed
     public ResponseEntity<CityDTO> getCity(@PathVariable Long id) {
         log.debug("REST request to get City : {}", id);
-        City city = cityRepository.findOne(id);
-        CityDTO cityDTO = cityMapper.toDto(city);
+        CityDTO cityDTO = cityService.findOne(id);
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(cityDTO));
     }
 
@@ -131,7 +111,7 @@ public class CityResource {
     @Timed
     public ResponseEntity<Void> deleteCity(@PathVariable Long id) {
         log.debug("REST request to delete City : {}", id);
-        cityRepository.delete(id);
+        cityService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 }

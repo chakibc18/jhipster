@@ -5,6 +5,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -25,13 +27,17 @@ public class City implements Serializable {
     private String name;
 
     @Column(name = "latitude")
-    private Float latitude;
+    private String latitude;
 
     @Column(name = "longitude")
-    private Float longitude;
+    private String longitude;
 
-    @ManyToOne
-    private User user;
+    @ManyToMany
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @JoinTable(name = "city_user",
+               joinColumns = @JoinColumn(name="cities_id", referencedColumnName="id"),
+               inverseJoinColumns = @JoinColumn(name="users_id", referencedColumnName="id"))
+    private Set<User> users = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -55,43 +61,55 @@ public class City implements Serializable {
         this.name = name;
     }
 
-    public Float getLatitude() {
+    public String getLatitude() {
         return latitude;
     }
 
-    public City latitude(Float latitude) {
+    public City latitude(String latitude) {
         this.latitude = latitude;
         return this;
     }
 
-    public void setLatitude(Float latitude) {
+    public void setLatitude(String latitude) {
         this.latitude = latitude;
     }
 
-    public Float getLongitude() {
+    public String getLongitude() {
         return longitude;
     }
 
-    public City longitude(Float longitude) {
+    public City longitude(String longitude) {
         this.longitude = longitude;
         return this;
     }
 
-    public void setLongitude(Float longitude) {
+    public void setLongitude(String longitude) {
         this.longitude = longitude;
     }
 
-    public User getUser() {
-        return user;
+    public Set<User> getUsers() {
+        return users;
     }
 
-    public City user(User user) {
-        this.user = user;
+    public City users(Set<User> users) {
+        this.users = users;
         return this;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public City addUser(User user) {
+        this.users.add(user);
+        user.getCities().add(this);
+        return this;
+    }
+
+    public City removeUser(User user) {
+        this.users.remove(user);
+        user.getCities().remove(this);
+        return this;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

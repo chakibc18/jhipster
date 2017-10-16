@@ -14,7 +14,6 @@ import {
     ActivityDeleteDialogComponent,
     activityRoute,
     activityPopupRoute,
-    ActivityResolvePagingParams,
 } from './';
 
 const ENTITY_STATES = [
@@ -46,7 +45,6 @@ const ENTITY_STATES = [
     providers: [
         ActivityService,
         ActivityPopupService,
-        ActivityResolvePagingParams,
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

@@ -16,7 +16,7 @@
                 "title": "Activity"
             },
             "name": "Name",
-            "spend": "Spend"
+            "user": "User"
         }
     }
 }
